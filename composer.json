@@ -1,0 +1,23 @@
+{
+    "name": "skaffold/configuration",
+    "description": "A simple configuration repository.",
+    "require": {
+        "atomastic/arrays": "^2.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Skaffold\\Configuration\\": "./src"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aidan Casey",
+            "email": "aidan.casey@anteris.com"
+        }
+    ],
+    "require-dev": {
+        "vimeo/psalm": "^4.3",
+        "phpunit/phpunit": "^9.5"
+    }
+}
