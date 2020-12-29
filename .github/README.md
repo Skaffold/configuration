@@ -5,7 +5,7 @@ The configuration repository is a simple class and contract to handle getting an
 `composer require skaffold/configuration`
 
 ## Getting started
-The configuration repository accepts an optional array of initial configuration keys.
+The configuration repository accepts an optional array of initial configuration keys. From there you have several methods to assist you when interacting with the configuration data. See below.
 
 ```php
 
