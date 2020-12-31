@@ -14,23 +14,21 @@ class ConfigurationRepositoryTest extends TestCase
     {
         $repo = new ConfigurationRepository;
 
-        $this->assertEmpty($repo->all());
+        $this->assertEmpty($repo->get());
     }
 
     public function test_it_can_create_repository_with_items()
     {
-        $repo = new ConfigurationRepository([
-            'test' => 'Hello world!'
-        ]);
+        $repo = new ConfigurationRepository;
+        $repo->set('test', 'Hello world!');
 
-        $this->assertCount(1, $repo->all());
+        $this->assertCount(1, $repo->get());
     }
 
     public function test_it_can_get_items()
     {
-        $repo = new ConfigurationRepository([
-            'test' => 'Hello world!'
-        ]);
+        $repo = new ConfigurationRepository;
+        $repo->set('test', 'Hello world!');
 
         $this->assertTrue($repo->has('test'));
         $this->assertFalse($repo->has('does not exist'));
@@ -42,9 +40,8 @@ class ConfigurationRepositoryTest extends TestCase
 
     public function test_it_can_delete_items()
     {
-        $repo = new ConfigurationRepository([
-            'test' => 'Hello world!'
-        ]);
+        $repo = new ConfigurationRepository;
+        $repo->set('test', 'Hello world!');
 
         $this->assertTrue($repo->has('test'));
         $repo->delete('test');
@@ -53,13 +50,14 @@ class ConfigurationRepositoryTest extends TestCase
 
     public function test_it_can_flush_items()
     {
-        $repo = new ConfigurationRepository([
+        $repo = new ConfigurationRepository;
+        $repo->fill([
             'test'  => 'Hello world!',
             'test2' => 'Hi there!',
         ]);
 
-        $this->assertCount(2, $repo->all());
+        $this->assertCount(2, $repo->get());
         $repo->flush();
-        $this->assertEmpty($repo->all());
+        $this->assertEmpty($repo->get());
     }
 }

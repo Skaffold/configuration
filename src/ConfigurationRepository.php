@@ -4,40 +4,64 @@ namespace Skaffold\Configuration;
 
 use Atomastic\Arrays\Arrays;
 
-class ConfigurationRepository implements ConfigurationRepositoryContract
+class ConfigurationRepository implements ConfigurationRepositoryInterface
 {
     protected Arrays $storage;
 
-    public function __construct($items = [])
+    public function __construct()
     {
-        $this->storage = new Arrays($items);
+        $this->storage = new Arrays;
     }
 
-    public function all()
+    /**
+     * {@inheritdoc}
+     */
+    public function delete(string $key): void
     {
-        return $this->storage->all();
+        $this->storage->delete($key);
     }
 
-    public function delete($keys): void
+    /**
+     * {@inheritdoc}
+     */
+    public function fill(array $items): void
     {
-        $this->storage->delete($keys);
+        foreach ($items as $key => $value) {
+            $this->set($key, $value);
+        }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function flush(): void
     {
         $this->storage->flush();
     }
 
-    public function get(string $key, $default = null)
+    /**
+     * {@inheritdoc}
+     */
+    public function get(?string $key = null, $default = null)
     {
+        if (! $key) {
+            return $this->storage->all();
+        }
+
         return $this->storage->get($key, $default);
     }
 
-    public function has($keys): bool
+    /**
+     * {@inheritdoc}
+     */
+    public function has(string $key): bool
     {
-        return $this->storage->has($keys);
+        return $this->storage->has($key);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function set(string $key, $value): void
     {
         $this->storage->set($key, $value);
